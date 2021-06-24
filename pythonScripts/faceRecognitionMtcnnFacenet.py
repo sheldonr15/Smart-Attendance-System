@@ -44,17 +44,11 @@ def resource_path(relative_path):
 
     return join(base_path, relative_path)
 
-# model = load_model(resource_path('..\\facenet-model\\facenet_keras.h5'))
 model = load_model(resource_path('facenet-model\\facenet_keras.h5'))
 
 def check_if_app_or_python():
-	# Check if script running form executable or E drive
 	return os.path.join(Path.home(), "Smart_attendance_system")
-	""" if os.getcwd()[0] == "E":
-        return os.getcwd()
-    else:
-        # return Path.home()
-        return os.path.join(Path.home(), app_name) """
+	
 
 # extract a single face from a given photograph
 '''
@@ -63,15 +57,12 @@ takes image >> convert to RGB >> convert to numpy array >> load MTCNN() >> apply
 ... >> create Image object from sliced array(face) >> resize for face recognition >> convert back to numpy array and return
 '''
 def extract_face(filename, required_size=(160, 160)):
-	# print(filename)
 	image = Image.open(filename)
 	image = image.convert('RGB')
 	pixels = asarray(image)
 
-	# detector = MTCNN()
 	results = detector.detect_faces(pixels)
 
-	# print(f"Filename : {filename}")
 	x1, y1, width, height = results[0]['box']
 	x1, y1 = abs(x1), abs(y1)
 	x2, y2 = x1 + width, y1 + height
@@ -104,19 +95,13 @@ def load_dataset(directory):
 	for subdir in listdir(directory):
 		path = directory + subdir + '\\'
 		if (not isdir(path)) or ("extra_unknown" in path):
-		# if (not isdir(path)):
 			continue
 		faces = load_faces(path)
 		labels = [subdir for _ in range(len(faces))]
-		#print('>loaded %d examples for class: %s' % (len(faces), subdir))
 		X.extend(faces)
 		y.extend(labels)
 	return asarray(X), asarray(y)
 
-
-
-# save arrays to one file in compressed format
-#savez_compressed('..\\face-recognition-mtcnn-facenet-misc\\compressed-files\\5-celebrity-faces-dataset.npz', trainX, trainy, testX, testy)
 
 
 
@@ -124,7 +109,6 @@ def load_dataset(directory):
 convert array of face to type 'float32' >> normalize the array >> models calculates embedding for image >> returns 128-d embedding
 '''
 # get the face embedding for one face
-# def get_embedding(model, face_pixels):
 def get_embedding(face_pixels):
 	face_pixels = face_pixels.astype('float32')
 	mean, std = face_pixels.mean(), face_pixels.std()
@@ -132,14 +116,6 @@ def get_embedding(face_pixels):
 	samples = expand_dims(face_pixels, axis=0)
 	yhat = model.predict(samples)
 	return yhat[0]
-
-# load the face dataset
-#data = load('..\\face-recognition-mtcnn-facenet-misc\\compressed-files\\5-celebrity-faces-dataset.npz')
-#trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
-# print('Loaded: ', trainX.shape, trainy.shape, testX.shape, testy.shape)
-
-# save arrays to one file in compressed format
-# savez_compressed('..\\face-recognition-mtcnn-facenet-misc\\compressed-files\\5-celebrity-faces-embeddings.npz', newTrainX, trainy, newTestX, testy)
 
 
 def main_train(model_name, train_file_location, validate_file_location):
@@ -162,15 +138,12 @@ def main_train(model_name, train_file_location, validate_file_location):
 
 
 	# load the facenet model
-	# model = load_model(resource_path('facenet-model\\facenet_keras.h5'))
-	# model = load_model(resource_path('..\\facenet-model\\facenet_keras.h5'))
 	print('Loaded Model')
 
 	# convert each face in the train set to an embedding
 	start_temp = time()
 	newTrainX = list()
 	for face_pixels in trainX:
-		# embedding = get_embedding(model, face_pixels)
 		embedding = get_embedding(face_pixels)
 		newTrainX.append(embedding)
 	print(f"'generate embedding for train' Time take {time() - start_temp} seconds")
@@ -193,8 +166,6 @@ def main_train(model_name, train_file_location, validate_file_location):
 	print(newTestX.shape)
 
 	# load embeddings
-	# data = load('..\\face-recognition-mtcnn-facenet-misc\\compressed-files\\5-celebrity-faces-embeddings.npz')
-	# trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
 	trainX, trainy, testX, testy = newTrainX, trainy, newTestX, testy
 	print('Dataset: train=%d, test=%d' % (trainX.shape[0], testX.shape[0]))
 
@@ -226,12 +197,10 @@ def main_train(model_name, train_file_location, validate_file_location):
 
 
 	# SAVE SVM MODEL	
-	# filename_svm_model = f"..\\..\\..\\face-recognition-mtcnn-facenet-misc\\saved_models\\{model_name}_svm.sav"
 	filename_svm_model = f"{str(check_if_app_or_python())}\\saved-models\\{model_name}_svm.sav"
 	pickle.dump(model_svm, open(filename_svm_model, 'wb'))
 
 	# SAVE ENCODED VALUES
-	# numpy.save(f'..\\..\\..\\face-recognition-mtcnn-facenet-misc\\saved_models\\{model_name}_classes.npy', out_encoder.classes_)
 	numpy.save(f"{str(check_if_app_or_python())}\\saved-models\\{model_name}_classes.npy", out_encoder.classes_)
 
 	print(f"Time take {time() - start} seconds")
@@ -241,5 +210,3 @@ def main_train(model_name, train_file_location, validate_file_location):
 
 if __name__ == "__main__":
 	pass
-	#main(model_name, train_file_location, validate_file_location)
-	# main_train("test2", "E:\Sheldon\BE_Project\Google_Colab\\face-recognition-mtcnn-facenet-misc\celebrity-dataset\\train\\", "E:\Sheldon\BE_Project\Google_Colab\\face-recognition-mtcnn-facenet-misc\celebrity-dataset\\val\\")
