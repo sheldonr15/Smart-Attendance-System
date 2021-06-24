@@ -36,15 +36,12 @@ It makes use of [MTCNN](https://pypi.org/project/mtcnn/) for face detection and 
 ---
 
 ### :pushpin: Getting Started : 
-If you don't want to build the application refer [this](smile-pre-built-application-virtual-environment-and-python-scripts)
+If you don't want to build the application refer [this](#smile-pre-built-application-virtual-environment-and-python-scripts)
 1. Clone the repository on your local machine using `git clone https://github.com/sheldonr15/Smart-Attendance-System.git`
 2. This project requires python 3.6.2 which can be downloaded from [here](https://www.python.org/ftp/python/3.6.2/python-3.6.2-amd64.exe).
-<br/>
 Follow the installation process and note down the install location.
-3. Create a virtual environment for the packages and the specified python version using the noted install location. If not installed, install virutalenv using `pip install virtualenv`.
-<br/>
-Use this command : `virtualenv -p <install_location>\python.exe <any_name>` .
-<br/>
+3. Create a virtual environment for the packages and the specified python version using the noted install location. If not installed, install virutalenv using `pip install virtualenv`. </br>
+Use this command : `virtualenv -p <install_location>\python.exe <any_name>` . </br>
 To activate virtual environment : `<any_name>\Scripts\activate.bat` 
 4. While inside the repository, install the required packages using `pip install -r requirements.txt`
 5. Create an empty folder named 'facenet-model' and put the .h5 Facenet model file found [here](https://drive.google.com/drive/folders/12aMYASGCKvDdkygSv1yQq8ns03AStDO_) inside this empty directory. The .h5 model file is sourced from [Hiroki Taniai's Github](https://github.com/nyoki-mtl/keras-facenet).
@@ -69,6 +66,6 @@ It can be downloaded from [here](https://drive.google.com/drive/folders/1FOm4aVT
 
 `Scripts/` : Contains scripts to create a custom face recognition model, give an image and video input to the model programmatically. These scripts can be used as imports in other python files or used from the command line with the provided flags.
 
-Virtual environment is required to be activated before using the above python scripts. Steps to do that can be found [here](pushpin-getting-started-) in points 2 - 4.
+Virtual environment is required to be activated before using the above python scripts. Steps to do that can be found [here](#pushpin-getting-started-) in points 2 - 4.
 
 
