@@ -37,7 +37,7 @@ It makes use of [MTCNN](https://pypi.org/project/mtcnn/) for face detection and 
 
 ### :pushpin: Getting Started : 
 If you don't want to build the application refer [this](pre-built-application-virtual-environment-and-python-scripts)
-1. Clone the repository on your local machine using `git clone https://github.com/sheldonr15/Smart_Attendance_System.git`
+1. Clone the repository on your local machine using `git clone https://github.com/sheldonr15/Smart-Attendance-System.git`
 2. This project requires python 3.6.2 which can be downloaded from [here](https://www.python.org/ftp/python/3.6.2/python-3.6.2-amd64.exe).
 <br/>
 Follow the installation process and note down the install location.
